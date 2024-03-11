@@ -7,10 +7,29 @@
 </head>
 <body>
     <h1>Plant Identification</h1>
+    <input type="file" accept="image/*" id="imageInput">
     <button onclick="identifyPlant()">Identify Plant</button>
     <div id="result"></div>
 
-    <!-- Link to client-side JavaScript file -->
-    <script src="./client.js"></script>
+    <script>
+        const express = require('express');
+        const cors = require('cors');
+        
+        const app = express();
+        const port = 5000;
+        
+        app.use(cors()); // Add this line to enable CORS for all routes
+        
+        // Route to handle plant identification
+        app.post('/identify', (req, res) => {
+            // Your identification logic here
+            // Send back the result as JSON
+            res.json({ result: 'Plant identified successfully' });
+        });
+        
+        app.listen(port, () => {
+            console.log(`Server is running on http://localhost:${port}`);
+        });
+    </script>
 </body>
 </html>
