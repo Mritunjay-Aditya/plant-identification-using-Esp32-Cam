@@ -122,7 +122,7 @@ footer {
     <div class="container">
         <h3>Plant Identification Result</h3>
         <p>The identified plant type is: {{ plant_type }}</p>
-      <img src="{{ url_for('serve_image', filename='image.jpg') }}" alt="Your Image">
+      <img id="image" src="{{ url_for('serve_image', filename='image.jpg') }}" alt="Your Image">
     </div>
   </section>
 
@@ -141,6 +141,8 @@ footer {
   </footer>
 
   <script>// Function to handle image upload
+    const image=document.getElementById('image');
+    
     function handleImageUpload(event) {
         const file = event.target.files[0];
         const reader = new FileReader();
