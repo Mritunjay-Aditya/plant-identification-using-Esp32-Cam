@@ -3,6 +3,8 @@ import os
 import requests
 import json
 from pprint import pprint
+plant_type = "rose"
+
 
 app = Flask(__name__)
 API_KEY = "2b10sI4pUqsrJchBzXFo9W0Ie"  # Set your API_KEY here
@@ -10,6 +12,8 @@ PROJECT = "all"  # try "weurope" or "canada"
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/{PROJECT}?api-key={API_KEY}"
 UPLOAD_FOLDER = 'templates'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+pprint(plant_type)
+
 
 def save_image(image_data, filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -20,6 +24,7 @@ def save_image(image_data, filename):
 @app.route("/identify", methods=["POST"])
 def identify_plant():
     # Get image data from request
+    global plant_type
     image_data = request.data
     
     # Save the image
@@ -32,14 +37,15 @@ def identify_plant():
     
     if response.status_code == 200:
         json_result = response.json()
-        pprint(json_result)  # Print the response for debugging
+         # Print the response for debugging
         # Extract the plant type from the response and return it
         # Assuming the response structure, you should adjust this part based on the actual response
-        plant_type = json_result['results'][0]['species']['scientificNameWithoutAuthor']
+        plant_type = json_result['bestMatch']
+        pprint(plant_type)
         return render_template("index.html", plant_type=plant_type)
         #return jsonify({"plantType": plant_type})
     else:
-        return render_template("index.html", plant_type="no plant type found")
+        return render_template("index.html")
 
 @app.route('/templates/<path:filename>')
 def serve_image(filename):
@@ -51,7 +57,11 @@ def serve_file(filename):
 
 @app.route("/")
 def welcome():
-    return render_template('index.html')
+    global plant_type
+    pprint(plant_type)
+    return render_template("index.html", plant_type=plant_type)
+
+
 
 if __name__ == "__main__":
     if not os.path.exists(app.config['UPLOAD_FOLDER']):

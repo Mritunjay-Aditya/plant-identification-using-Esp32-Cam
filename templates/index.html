@@ -1,12 +1,11 @@
 <!-- plant_detection.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="2">
-  <title>Plant Identification and Management System</title>
+  <meta http-equiv="refresh" content="5">
+  <title>Plant Identification and Management System Made</title>
   <style>
     
 body {
@@ -121,82 +120,17 @@ footer {
   <section class="upload">
     <div class="container">
         <h3>Plant Identification Result</h3>
-        <p>The identified plant type is: {{ plant_type }}</p>
-      <img id="image" src="{{ url_for('serve_image', filename='image.jpg') }}" alt="Your Image">
+      <img src="{{ url_for('serve_image', filename='image.jpg') }}" alt="Your Image">
+      <p>The identified plant type is: {{ plant_type }}</p>
     </div>
   </section>
 
-  <section class="result" id="resultSection">
-    <div class="container">
-      <h2>Result</h2>
-      <div id="result"></div>
-      <button id="retryButton" class="btn">Try Again</button>
-    </div>
-  </section>
 
   <footer>
     <div class="container">
       <p>&copy; 2024 Plant Detector</p>
     </div>
   </footer>
-
-  <script>// Function to handle image upload
-    const image=document.getElementById('image');
-    
-    function handleImageUpload(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-    
-        reader.onload = function (e) {
-            const uploadedImage = e.target.result;
-            displayImage(uploadedImage);
-            processImage(uploadedImage);
-        };
-    
-        reader.readAsDataURL(file);
-    }
-    
-    // Function to display uploaded image
-    function displayImage(imageUrl) {
-        const imageContainer = document.getElementById('uploaded-image');
-        imageContainer.innerHTML = `<img src="${imageUrl}" alt="Uploaded Plant" />`;
-    }
-    
-    // Function to process the uploaded image
-    function processImage(imageUrl) {
-        // Display processing animation
-        const processingAnimation = document.getElementById('processing-animation');
-        processingAnimation.style.display = 'block';
-    
-        // Simulate processing delay (replace with actual processing logic)
-        setTimeout(() => {
-            // Simulated result (replace with actual detection logic)
-            const result = {
-                plantName: "Rose",
-                scientificName: "Rosa",
-                description: "The rose is a woody perennial flowering plant of the genus Rosa, in the family Rosaceae."
-            };
-    
-            displayResult(result);
-    
-            // Hide processing animation
-            processingAnimation.style.display = 'none';
-        }, 2000); // Simulated delay of 2 seconds
-    }
-    
-    // Function to display detection result
-    function displayResult(result) {
-        const resultContainer = document.getElementById('detection-result');
-        resultContainer.innerHTML = `
-            <h2>${result.plantName}</h2>
-            <p><strong>Scientific Name:</strong> ${result.scientificName}</p>
-            <p>${result.description}</p>
-        `;
-    }
-    
-    // Event listener for file input change
-    const fileInput = document.getElementById('file-input');
-    fileInput.addEventListener('change', handleImageUpload);
-    </script>
+  
 </body>
 </html>
