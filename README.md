@@ -1,4 +1,4 @@
-# Plant Identification and Management System
+# Plant Identification System
 
 ## Overview
 This project aims to create a system for identifying plants using image recognition technology. It utilizes an ESP32-CAM module to capture plant images and sends them to a Flask server for processing. The server then communicates with the PlantNet API to identify the plant species and returns the result to the user interface.
@@ -49,8 +49,4 @@ This project aims to create a system for identifying plants using image recognit
 4. Wait for the identification process to complete.
 5. The identified plant species will be displayed on the web interface.
 
-## Contributors
-- [Your Name]
 
-## License
-This project is licensed under the [MIT License](LICENSE).
